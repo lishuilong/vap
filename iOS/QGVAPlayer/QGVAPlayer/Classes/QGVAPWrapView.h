@@ -21,8 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, QGVAPWrapViewContentMode) {
     QGVAPWrapViewContentModeScaleToFill,
-    QGVAPWrapViewContentModeAspectFit,
+    QGVAPWrapViewContentModeAspectFit,//宽度或高度为基准等比计算布局size 居中对齐
     QGVAPWrapViewContentModeAspectFill,
+    QGVAPWrapViewContentModeAspectFitTop,//宽度为基准等比计算布局高度 顶部对齐
+    QGVAPWrapViewContentModeAspectFitBottom,//宽度为基准等比计算布局高度 底部对齐
 };
 
 @protocol VAPWrapViewDelegate <NSObject>
