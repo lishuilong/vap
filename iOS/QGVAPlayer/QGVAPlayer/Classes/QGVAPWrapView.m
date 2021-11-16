@@ -121,39 +121,53 @@
     CGFloat videoRatio = config.info.size.width / config.info.size.height;
     
     switch (self.contentMode) {
-        case QGVAPWrapViewContentModeScaleToFill: {
+            case QGVAPWrapViewContentModeScaleToFill: {
 
-        }
-            break;
-        case QGVAPWrapViewContentModeAspectFit: {
-            if (layoutRatio < videoRatio) {
+            }
+                break;
+            case QGVAPWrapViewContentModeAspectFit: {
+                if (layoutRatio < videoRatio) {
+                    realWidth = layoutWidth;
+                    realHeight = realWidth / videoRatio;
+                } else {
+                    realHeight = layoutHeight;
+                    realWidth = videoRatio * realHeight;
+                }
+                
+                self.vapView.frame = CGRectMake(0, 0, realWidth, realHeight);
+                self.vapView.center = self.center;
+            }
+                break;
+            case QGVAPWrapViewContentModeAspectFitTop: {
                 realWidth = layoutWidth;
                 realHeight = realWidth / videoRatio;
-            } else {
-                realHeight = layoutHeight;
-                realWidth = videoRatio * realHeight;
+                
+                self.vapView.frame = CGRectMake(0, 0, realWidth, realHeight);
             }
-            
-            self.vapView.frame = CGRectMake(0, 0, realWidth, realHeight);
-            self.vapView.center = self.center;
-        }
-            break;;
-        case QGVAPWrapViewContentModeAspectFill: {
-            if (layoutRatio > videoRatio) {
+                break;
+            case QGVAPWrapViewContentModeAspectFitBottom: {
                 realWidth = layoutWidth;
                 realHeight = realWidth / videoRatio;
-            } else {
-                realHeight = layoutHeight;
-                realWidth = videoRatio * realHeight;
+                
+                self.vapView.frame = CGRectMake(0, self.frame.size.height-realHeight, realWidth, realHeight);
             }
-            
-            self.vapView.frame = CGRectMake(0, 0, realWidth, realHeight);
-            self.vapView.center = self.center;
+                break;
+            case QGVAPWrapViewContentModeAspectFill: {
+                if (layoutRatio > videoRatio) {
+                    realWidth = layoutWidth;
+                    realHeight = realWidth / videoRatio;
+                } else {
+                    realHeight = layoutHeight;
+                    realWidth = videoRatio * realHeight;
+                }
+                
+                self.vapView.frame = CGRectMake(0, 0, realWidth, realHeight);
+                self.vapView.center = self.center;
+            }
+                break;
+            default:
+                break;
         }
-            break;;
-        default:
-            break;
-    }
 }
 
 #pragma mark -  mp4 hwd delegate
